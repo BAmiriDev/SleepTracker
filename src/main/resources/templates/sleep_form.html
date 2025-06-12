@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sleep Entry Form</title>
+</head>
+<body>
+<h1 th:text="${sleepEntry.id != null} ? 'Edit Entry' : 'New Sleep Entry'"></h1>
+<form th:action="@{${sleepEntry.id != null} ? '/sleep/update/' + ${sleepEntry.id} : '/sleep'}" method="post">
+    <label>Date: <input type="date" th:field="*{date}" /></label><br/>
+    <label>Sleep Time: <input type="time" th:field="*{sleepTime}" /></label><br/>
+    <label>Wake Time: <input type="time" th:field="*{wakeTime}" /></label><br/>
+    <label>Quality:
+        <select th:field="*{quality}">
+            <option>Excellent</option>
+            <option>Good</option>
+            <option>Okay</option>
+            <option>Poor</option>
+        </select>
+    </label><br/>
+    <label>Notes: <textarea th:field="*{notes}"></textarea></label><br/>
+    <button type="submit">Submit</button>
+</form>
+<a th:href="@{/sleep}">Back to list</a>
+</body>
+</html>

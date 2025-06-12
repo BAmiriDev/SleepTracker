@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sleep Tracker</title>
+</head>
+<body>
+<h1>Sleep Entries</h1>
+<a th:href="@{/sleep/new}">Add New Entry</a>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Sleep Time</th>
+        <th>Wake Time</th>
+        <th>Quality</th>
+        <th>Notes</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entry : ${entries}">
+        <td th:text="${entry.date}"></td>
+        <td th:text="${entry.sleepTime}"></td>
+        <td th:text="${entry.wakeTime}"></td>
+        <td th:text="${entry.quality}"></td>
+        <td th:text="${entry.notes}"></td>
+        <td>
+            <a th:href="@{'/sleep/edit/' + ${entry.id}}">Edit</a>
+            <a th:href="@{'/sleep/delete/' + ${entry.id}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
