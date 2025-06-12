@@ -2,6 +2,7 @@ package com.bilalamiry.sleeptracker.controller;
 
 import com.bilalamiry.sleeptracker.model.SleepEntry;
 import com.bilalamiry.sleeptracker.repository.SleepEntryRepository;
+import com.bilalamiry.sleeptracker.service.SleepEntryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,15 +11,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/sleep")
 public class SleepEntryController {
 
-    private final SleepEntryRepository repository;
+    private final SleepEntryService service;
 
-    public SleepEntryController(SleepEntryRepository repository) {
-        this.repository = repository;
+    public SleepEntryController(SleepEntryService service) {
+        this.service = service;
     }
 
     @GetMapping
     public String listEntries(Model model) {
-        model.addAttribute("entries", repository.findAll());
+        model.addAttribute("entries", service.findAll());
         return "sleep_list";
     }
 
@@ -30,27 +31,26 @@ public class SleepEntryController {
 
     @PostMapping
     public String saveEntry(@ModelAttribute SleepEntry sleepEntry) {
-        repository.save(sleepEntry);
+        service.save(sleepEntry);
         return "redirect:/sleep";
     }
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        SleepEntry entry = repository.findById(id).orElseThrow();
-        model.addAttribute("sleepEntry", entry);
+        model.addAttribute("sleepEntry", service.findById(id));
         return "sleep_form";
     }
 
     @PostMapping("/update/{id}")
     public String updateEntry(@PathVariable Long id, @ModelAttribute SleepEntry sleepEntry) {
         sleepEntry.setId(id);
-        repository.save(sleepEntry);
+        service.save(sleepEntry);
         return "redirect:/sleep";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteEntry(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.deleteById(id);
         return "redirect:/sleep";
     }
 }
