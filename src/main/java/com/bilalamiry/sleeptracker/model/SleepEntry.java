@@ -1,6 +1,8 @@
 package com.bilalamiry.sleeptracker.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -11,6 +13,7 @@ public class SleepEntry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     private LocalTime sleepTime;
     private LocalTime wakeTime;
