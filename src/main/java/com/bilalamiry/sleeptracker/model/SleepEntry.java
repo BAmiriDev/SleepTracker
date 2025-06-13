@@ -3,6 +3,7 @@ package com.bilalamiry.sleeptracker.model;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -37,4 +38,11 @@ public class SleepEntry {
 
     public String getNotes() { return notes; }
     public void setNotes(String notes) { this.notes = notes; }
+
+    public String getSleepDuration() {
+        if (sleepTime == null || wakeTime == null) return "";
+        Duration d = Duration.between(sleepTime, wakeTime);
+        if (d.isNegative()) d = d.plusHours(24);
+        return "%dh %02dm".formatted(d.toHours(), d.toMinutesPart());
+    }
 }

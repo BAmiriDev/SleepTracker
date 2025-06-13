@@ -54,7 +54,7 @@
             <table class="table table-bordered align-middle mb-0">
                 <thead>
                 <tr>
-                    <th>Date</th><th>Sleep</th><th>Wake</th><th>Quality</th><th>Notes</th><th class="text-center">Actions</th>
+                    <th>Date</th><th>Sleep</th><th>Wake</th><th>Duration</th><th>Quality</th><th>Notes</th><th class="text-center">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -62,6 +62,7 @@
                     <td th:text="${entry.date}"></td>
                     <td th:text="${entry.sleepTime}"></td>
                     <td th:text="${entry.wakeTime}"></td>
+                    <td th:text="${entry.sleepDuration}"></td>
                     <td th:text="${entry.quality}"></td>
                     <td th:text="${entry.notes}"></td>
                     <td class="text-center">
